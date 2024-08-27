@@ -27,4 +27,19 @@ router.get('/hotnews',(req,res)=>{
     })
 })
 
+router.get('/getNewsId',(req,res)=>{
+    const sql = `select id from HotNews where name = ?`
+    console.log(req.query.newsName);
+    db.query(sql,req.query.newsName,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        if(results.length === 0){
+            return res.send('相关新闻尚未设置id')
+        }
+        res.send(results[0])
+    })
+    // res.send('ok')
+})
+
 module.exports = router

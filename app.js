@@ -9,7 +9,7 @@ const Newsrouter = require('./router/news')
 const Userrouter = require('./router/user')
 const Searchrouter = require('./router/search')
 const UserPicrouter = require('./router/user_pic')
-// const test = require('./test')
+const Commentrouter = require('./router/comment')
 const config = require('./config')
 const app = express()
 
@@ -25,6 +25,7 @@ app.use(expressJwt({secret:config.jwtScrectKey}).unless({path:[/^\/api/]}))
 app.use('/api',Newsrouter)
 app.use('/api',Userrouter)
 app.use('/api',Searchrouter)
+app.use('/api',Commentrouter)
 
 
 app.use(UserPicrouter)

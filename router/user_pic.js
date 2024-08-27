@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db/database')
 
+/* 路径是相对于前端 */
 const pic = [
-    "https://krseoul.imgtbl.com/i/2024/08/19/66c296964f836.jpg",
-    "https://krseoul.imgtbl.com/i/2024/08/19/66c29697b3c88.jpeg",
-    "https://krseoul.imgtbl.com/i/2024/08/19/66c2969795f48.jpg",
+    'https://s2.loli.net/2024/08/19/G8Rm2kDzjTABvPq.jpg',
+    'https://s2.loli.net/2024/08/19/dIauDHQl4ViGJj1.jpg',
+    'https://s2.loli.net/2024/08/19/6fiYKXUx3C2LsQE.jpg'
 ]
 
 function getRandomInt(min, max) {
@@ -24,7 +25,8 @@ router.get('/user_pic', (req, res) => {
             res.send(err)
         }
         /* 数据库中已经有头像 */
-        if (results.length === 1) {
+        if (results.length === 1 && results[0].pic !== null) {
+            console.log(results);
             res.send({
                 meg: "获取头像成功",
                 username: req.user.username,
