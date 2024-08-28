@@ -10,6 +10,7 @@ const Userrouter = require('./router/user')
 const Searchrouter = require('./router/search')
 const UserPicrouter = require('./router/user_pic')
 const Commentrouter = require('./router/comment')
+const Feedbackrouter = require('./router/feedback')
 const config = require('./config')
 const app = express()
 
@@ -26,6 +27,7 @@ app.use('/api',Newsrouter)
 app.use('/api',Userrouter)
 app.use('/api',Searchrouter)
 app.use('/api',Commentrouter)
+app.use('/api',Feedbackrouter)
 
 
 app.use(UserPicrouter)
