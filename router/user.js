@@ -3,6 +3,7 @@ const db = require('../db/database')
 const config = require('../config')
 const jwt = require('jsonwebtoken')//用于生成token
 const { reg_login_schema } = require('../schema/user')//使用es6新特性，只需要导出对象的(reg_login_schema)属性
+const { changeInfo_schema } = require('../schema/user')//使用es6新特性，只需要导出对象的(reg_login_schema)属性
 //验证数据的中间件
 const expressJoi = require('@escook/express-joi')
 
@@ -85,6 +86,31 @@ router.post('/sign_in',expressJoi(reg_login_schema), (req, res) => {
                 token:'Bearer '+tokenStr
             })
         }
+    })
+})
+
+router.post('/changeinfo',expressJoi(changeInfo_schema),(req,res)=>{
+    const oldUsername = req.body.oldUsername
+    const username = req.body.username
+    const password = req.body.password
+    const checkSql = `select * from user where username = ?`
+    db.query(checkSql,oldUsername,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        if(results.length !== 1){
+            return res.send('用户不存在')
+        }
+        const sql = `update user set username = ? ,password = ? where username = ?`
+        db.query(sql,[username,password,oldUsername],(err,results)=>{
+            if(err){
+                return res.send(err)
+            }
+            if(results.affectedRows !== 1){
+                return res.send('修改用户信息失败')
+            }
+            res.send('修改成功')
+        })
     })
 })
 

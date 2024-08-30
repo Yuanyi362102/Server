@@ -18,6 +18,13 @@ exports.reg_login_schema = {
         password,
     }
 }
+exports.changeInfo_schema = {
+    body:{
+        username,
+        password,
+        oldUsername:username,
+    }
+}
 
 
 
