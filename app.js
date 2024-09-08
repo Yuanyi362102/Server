@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const joi = require('joi')
 const expressJwt = require('express-jwt')
-const axios = require('axios');
 /* 导入自定义库 */
 const Newsrouter = require('./router/news')
 const Userrouter = require('./router/user')
